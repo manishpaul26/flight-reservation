@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspaceFilter version="1.0">
+    <filter root="/conf/flight-reservation" mode="merge"/>
+    <filter root="/content/flight-reservation" mode="merge"/>
+    <filter root="/content/dam/flight-reservation" mode="merge"/>
+    <filter root="/content/experience-fragments/flight-reservation" mode="merge"/>
+</workspaceFilter>
