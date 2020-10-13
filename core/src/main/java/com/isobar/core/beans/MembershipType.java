@@ -17,4 +17,18 @@ public enum MembershipType {
         }
         return null;
     }
+
+
+    @Nullable
+    public static MembershipType of(String type) {
+        switch (type) {
+            case "gold":
+                return GOLD;
+            case "silver":
+                return SILVER;
+            case "bronze":
+                return BRONZE;
+        }
+        return null;
+    }
 }

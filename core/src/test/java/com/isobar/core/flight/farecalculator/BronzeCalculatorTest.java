@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class SilverCalculatorTest {
+public class BronzeCalculatorTest {
 
     private Flight flight;
 
@@ -32,12 +32,12 @@ public class SilverCalculatorTest {
     @Test
     public void testWithOnlyAdults() {
 
-        Passengers passengers = new Passengers(3, null, MembershipType.SILVER);
+        Passengers passengers = new Passengers(3, null, MembershipType.BRONZE);
 
         BookingDetails bookingDetails = new BookingDetails(flight, passengers);
 
-        SilverCalculator silverCalculator = new SilverCalculator();
-        float cost = silverCalculator.calculateCost(bookingDetails);
+        BronzeCalculator BronzeCalculator = new BronzeCalculator();
+        float cost = BronzeCalculator.calculateCost(bookingDetails);
 
         assertThat("Cost should be $225 for 3 adults: ", cost, CoreMatchers.is(225f));
 
@@ -46,10 +46,11 @@ public class SilverCalculatorTest {
     /***
      *
      * 2 adults * 75 = 150
-     * 2 children below 8 = 80% of 75 = 60
-     *      = 2 * 60 = 120
+     * 1 child between 3 and 16 = 90% of 75 = 67.5
+     * 1 child between 0 and 2 = 60% of 75 = 45
      *
-     * Total = 150 + 120 = 270
+     *
+     * Total = 150 + 67.5 + 45 = 262.5
      */
     @Test
     public void testWithAdultsAndChildrenBelow8() {
@@ -57,22 +58,22 @@ public class SilverCalculatorTest {
         List<Integer> childAges = new ArrayList<>();
         childAges.add(new Integer(1));
         childAges.add(new Integer(5));
-        Passengers passengers = new Passengers(2, childAges, MembershipType.SILVER);
+        Passengers passengers = new Passengers(2, childAges, MembershipType.BRONZE);
 
         BookingDetails bookingDetails = new BookingDetails(flight, passengers);
 
-        SilverCalculator silverCalculator = new SilverCalculator();
-        float cost = silverCalculator.calculateCost(bookingDetails);
+        BronzeCalculator BronzeCalculator = new BronzeCalculator();
+        float cost = BronzeCalculator.calculateCost(bookingDetails);
 
-        assertThat("Cost should be $225 for 2 adults and 2 children (below 8): ", cost, CoreMatchers.is(270f));
+        assertThat("Cost should be $262.5 for 2 adults and 2 children (below 8): ", cost, CoreMatchers.is(262.5f));
 
     }
 
     /***
      *
      * 2 adults * 75 = 150
-     * 2 children above 8 = 90% of 75 = 67.5
-     *      = 2 * 67.50 = 135
+     * 2 children above 8 = 80% of 75 = 67.5
+     *      = 2 * 67.5 = 135
      *
      * Total = 150 + 135 = 285
      */
@@ -82,14 +83,14 @@ public class SilverCalculatorTest {
         List<Integer> childAges = new ArrayList<>();
         childAges.add(new Integer(10));
         childAges.add(new Integer(12));
-        Passengers passengers = new Passengers(2, childAges, MembershipType.SILVER);
+        Passengers passengers = new Passengers(2, childAges, MembershipType.BRONZE);
 
         BookingDetails bookingDetails = new BookingDetails(flight, passengers);
 
-        SilverCalculator silverCalculator = new SilverCalculator();
-        float cost = silverCalculator.calculateCost(bookingDetails);
+        BronzeCalculator BronzeCalculator = new BronzeCalculator();
+        float cost = BronzeCalculator.calculateCost(bookingDetails);
 
-        assertThat("Cost should be $225 for 2 adults and 2 children (above 8): ", cost, CoreMatchers.is(285f));
+        assertThat("Cost should be $285 for 2 adults and 2 children (above 8): ", cost, CoreMatchers.is(285f));
 
     }
 
@@ -97,9 +98,9 @@ public class SilverCalculatorTest {
      *
      * 2 adults * 75 = 150
      * 1 child above 8 = 90% of 75 = 67.5
-     * 1 child below 8 = 80% of 75 = 60
+     * 1 child below 8 = 90% of 75 = 67.5
      *
-     * Total = 150 + 67.5 + 60 = 277.5
+     * Total = 150 + 135 = 285
      */
     @Test
     public void testWithAdultsAndMixedAgedChildren() {
@@ -107,14 +108,14 @@ public class SilverCalculatorTest {
         List<Integer> childAges = new ArrayList<>();
         childAges.add(new Integer(7));
         childAges.add(new Integer(12));
-        Passengers passengers = new Passengers(2, childAges, MembershipType.SILVER);
+        Passengers passengers = new Passengers(2, childAges, MembershipType.BRONZE);
 
         BookingDetails bookingDetails = new BookingDetails(flight, passengers);
 
-        SilverCalculator silverCalculator = new SilverCalculator();
-        float cost = silverCalculator.calculateCost(bookingDetails);
+        BronzeCalculator BronzeCalculator = new BronzeCalculator();
+        float cost = BronzeCalculator.calculateCost(bookingDetails);
 
-        assertThat("Cost should be $225 for 2 adults and 2 children (above 8): ", cost, CoreMatchers.is(277.5f));
+        assertThat("Cost should be $285 for 2 adults and 2 children (above 8): ", cost, CoreMatchers.is(285f));
 
     }
 
@@ -131,35 +132,35 @@ public class SilverCalculatorTest {
 
         List<Integer> childAges = new ArrayList<>();
         childAges.add(new Integer(16));
-        Passengers passengers = new Passengers(0, childAges, MembershipType.SILVER);
+        Passengers passengers = new Passengers(0, childAges, MembershipType.BRONZE);
 
         BookingDetails bookingDetails = new BookingDetails(flight, passengers);
 
-        SilverCalculator silverCalculator = new SilverCalculator();
-        float cost = silverCalculator.calculateCost(bookingDetails);
+        BronzeCalculator BronzeCalculator = new BronzeCalculator();
+        float cost = BronzeCalculator.calculateCost(bookingDetails);
 
-        assertThat("Cost should be $60 for 1 child of age sixteen ", cost, CoreMatchers.is(67.5f));
+        assertThat("Cost should be $67.5 for 1 child of age sixteen ", cost, CoreMatchers.is(67.5f));
 
     }
 
 
     /***
      *
-     * 1 child (8 years) = 0.8 * 75 = 60
+     * 1 child (8 years) = 0.9 * 75 = 67.5
      */
     @Test
     public void testWithOneChildEight() {
 
         List<Integer> childAges = new ArrayList<>();
         childAges.add(new Integer(8));
-        Passengers passengers = new Passengers(0, childAges, MembershipType.SILVER);
+        Passengers passengers = new Passengers(0, childAges, MembershipType.BRONZE);
 
         BookingDetails bookingDetails = new BookingDetails(flight, passengers);
 
-        SilverCalculator silverCalculator = new SilverCalculator();
-        float cost = silverCalculator.calculateCost(bookingDetails);
+        BronzeCalculator BronzeCalculator = new BronzeCalculator();
+        float cost = BronzeCalculator.calculateCost(bookingDetails);
 
-        assertThat("Cost should be $60 for 1 child of age eight ", cost, CoreMatchers.is(60f));
+        assertThat("Cost should be $67.5 for 1 child of age eight ", cost, CoreMatchers.is(67.5f));
 
     }
 }

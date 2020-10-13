@@ -12,20 +12,17 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class ScheduleUtils {
 
-    public static Map<String, Map<String, Set<Flight>>> getSchedule() {
+    public static Schedule getSchedule(Route route) {
 
-        Map<String, Map<String, Set<Flight>>> flightSchedule =  new HashMap<>();
+        Map<String, Map<String, List<Flight>>> flightSchedule =  new HashMap<>();
 
 
-        Map<String, Set<Flight>> sydneyDepartures = new HashMap<>(1);
-        Set<Flight> sydneyToMelbourneFlights = new TreeSet<>((o1, o2) -> o1.getArrivalTime().isBefore(o2.getArrivalTime()) ? 0 : 1);
+        Map<String, List<Flight>> sydneyDepartures = new HashMap<>(1);
+        List<Flight> sydneyToMelbourneFlights = new ArrayList<>();
         sydneyToMelbourneFlights.add(new Flight(LocalTime.of(6, 5), LocalTime.of(7, 40), 75));
         sydneyToMelbourneFlights.add(new Flight(LocalTime.of(6, 40), LocalTime.of(8, 15), 74));
         sydneyToMelbourneFlights.add(new Flight(LocalTime.of(7, 0), LocalTime.of(8, 35), 79));
@@ -35,19 +32,18 @@ public class ScheduleUtils {
 
         flightSchedule.put("sydney", sydneyDepartures);
 
-        Set<Flight> melbourneToSydneyFlights = new TreeSet<>((o1, o2) -> o1.getArrivalTime().isBefore(o2.getArrivalTime()) ? 0 : 1);
+        List<Flight> melbourneToSydneyFlights = new ArrayList<>();
         melbourneToSydneyFlights.add(new Flight(LocalTime.of(6, 15), LocalTime.of(7, 50), 79));
         melbourneToSydneyFlights.add(new Flight(LocalTime.of(6, 50), LocalTime.of(8, 25), 76));
         melbourneToSydneyFlights.add(new Flight(LocalTime.of(7, 30), LocalTime.of(9, 15), 89));
         melbourneToSydneyFlights.add(new Flight(LocalTime.of(10, 15), LocalTime.of(11, 50), 99));
 
 
+        Schedule sydToMel = new Schedule("Sydney", "Melbourne", sydneyToMelbourneFlights);
+        Schedule melToSyd = new Schedule("Melbourne", "Sydney", melbourneToSydneyFlights);
 
-        Map<String, Set<Flight>> melbourneDepartures = new HashMap<>(1);
-        melbourneDepartures.put("sydney", melbourneToSydneyFlights);
-        flightSchedule.put("melbourne", melbourneDepartures);
+        return route == Route.SYDNEY_TO_MELBOURNE ? sydToMel : melToSyd;
 
-        return flightSchedule;
     }
 
     public static Schedule getJsonSchedule(Route route) {

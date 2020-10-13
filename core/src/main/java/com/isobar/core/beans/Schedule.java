@@ -10,6 +10,11 @@ public class Schedule {
 
     private List<Flight> flights;
 
+    public Schedule(String origin, String destination, List<Flight> flights) {
+        this.origin = origin;
+        this.destination = destination;
+        this.flights = flights;
+    }
 
     public String getOrigin() {
         return origin;

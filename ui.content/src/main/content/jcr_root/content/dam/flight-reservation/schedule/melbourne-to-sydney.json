@@ -1,0 +1,66 @@
+{
+  "origin": "melbourne",
+  "destination": "sydney",
+  "flights": [
+    {
+      "departureTime": {
+        "hour": 6,
+        "minute": 15,
+        "second": 0,
+        "nano": 0
+      },
+      "arrivalTime": {
+        "hour": 7,
+        "minute": 50,
+        "second": 0,
+        "nano": 0
+      },
+      "price": 79
+    },
+    {
+      "departureTime": {
+        "hour": 6,
+        "minute": 50,
+        "second": 0,
+        "nano": 0
+      },
+      "arrivalTime": {
+        "hour": 8,
+        "minute": 25,
+        "second": 0,
+        "nano": 0
+      },
+      "price": 76
+    },
+    {
+      "departureTime": {
+        "hour": 7,
+        "minute": 30,
+        "second": 0,
+        "nano": 0
+      },
+      "arrivalTime": {
+        "hour": 9,
+        "minute": 15,
+        "second": 0,
+        "nano": 0
+      },
+      "price": 89
+    },
+    {
+      "departureTime": {
+        "hour": 10,
+        "minute": 15,
+        "second": 0,
+        "nano": 0
+      },
+      "arrivalTime": {
+        "hour": 11,
+        "minute": 50,
+        "second": 0,
+        "nano": 0
+      },
+      "price": 99
+    }
+  ]
+}

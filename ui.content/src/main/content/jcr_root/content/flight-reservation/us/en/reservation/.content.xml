@@ -2,19 +2,20 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
     jcr:primaryType="cq:Page">
     <jcr:content
+        cq:lastModified="{Date}2020-10-13T23:02:09.999+11:00"
+        cq:lastModifiedBy="admin"
         cq:template="/conf/flight-reservation/settings/wcm/templates/page-content"
         jcr:primaryType="cq:PageContent"
+        jcr:title="Reservation"
         sling:resourceType="flight-reservation/components/page">
         <root
             jcr:primaryType="nt:unstructured"
             sling:resourceType="flight-reservation/components/container">
-            <container
+            <reservation
                 jcr:primaryType="nt:unstructured"
-                sling:resourceType="flight-reservation/components/container">
-                <reservation
-                    jcr:primaryType="nt:unstructured"
-                    sling:resourceType="flight-reservation/components/reservation/v1/reservation"/>
-            </container>
+                sling:resourceType="flight-reservation/components/reservation/v1/reservation"
+                destinationLabel="Destination"
+                originLabel="Origin"/>
         </root>
     </jcr:content>
 </jcr:root>

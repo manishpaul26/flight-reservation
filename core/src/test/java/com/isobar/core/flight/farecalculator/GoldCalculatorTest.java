@@ -49,7 +49,7 @@ public class GoldCalculatorTest {
      * 2 children below 8 = 70% of 75 = 52.5
      *      = 2 * 52.5 = 105
      *
-     * Total = 105 + 225 = 255
+     * Total = 150 + 105 = 255
      */
     @Test
     public void testWithAdultsAndChildrenBelow8() {
@@ -74,7 +74,7 @@ public class GoldCalculatorTest {
      * 2 children above 8 = 80% of 75 = 60
      *      = 2 * 60 = 120
      *
-     * Total = 105 + 225 = 270
+     * Total = 150 + 120 = 270
      */
     @Test
     public void testWithAdultsAndChildrenAbove8() {
@@ -99,7 +99,7 @@ public class GoldCalculatorTest {
      * 1 child above 8 = 80% of 75 = 60
      * 1 child below 8 = 70% of 75 = 52.5
      *
-     * Total = 105 + 225 = 262.5
+     * Total = 150 + 60 + 52.5 = 262.5
      */
     @Test
     public void testWithAdultsAndMixedAgedChildren() {
