@@ -12,7 +12,6 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-
         int selection;
 
         Route selectedRoute = Route.of(simpleIntegerInput("Choose route : \n 1. Sydney to Melbourne \n 2. Melbourne to Sydney", scanner));
@@ -25,17 +24,29 @@ public class Main {
             count++;
         }
 
-
         selection = simpleIntegerInput("Select flight: (Enter the number)", scanner);
         Flight selectedFlight = schedule.getFlights().get(selection - 1);
 
-
         System.out.println("Enter passenger details: ");
-        int adults = simpleIntegerInput("Adults (16+): ", scanner);;
-        int numberOfChildren = simpleIntegerInput("Children (below 16 years): ", scanner);
+        int adults = simpleIntegerInput("Number of Adults (16+): ", scanner);;
+
+        List<Integer> childrenAges = getChildAges(scanner);
+        MembershipType membershipType = getMembership(scanner);
+
+        BookingDetails bookingDetails = new BookingDetails(selectedFlight, new Passengers(adults, childrenAges, membershipType));
+
+        FareCalculator fareCalculator = FareCalculatorFactory.getInstance(membershipType);
+        float cost = fareCalculator.calculateCost(bookingDetails);
+
+        System.out.println("Total fare: " + cost);
 
 
-        List<Integer> childrenAges = new ArrayList<>(numberOfChildren);
+    }
+
+
+    private static List<Integer> getChildAges(Scanner scanner) {
+        List<Integer> childrenAges = new ArrayList<>();
+        int numberOfChildren = simpleIntegerInput("Number of Children (below 16 years): ", scanner);
         for( int i = 0; i < numberOfChildren; i++) {
             Integer age = simpleIntegerInput("Enter age for child " + (i + 1), scanner);
             if (age > 16 || age < 0) {
@@ -45,20 +56,12 @@ public class Main {
             }
             childrenAges.add(age);
         }
+        return childrenAges;
+    }
 
-
+    private static MembershipType getMembership(Scanner scanner) {
         int membershipInput = simpleIntegerInput("Enter your membership type: \n1. Gold\n2. Silver\n3. Bronze", scanner);
-        MembershipType membershipType = MembershipType.of(membershipInput);
-
-        Passengers passengers = new Passengers(adults, childrenAges, membershipType);
-        BookingDetails bookingDetails = new BookingDetails(selectedFlight, passengers);
-
-        FareCalculator fareCalculator = FareCalculatorFactory.getInstance(membershipType);
-        float cost = fareCalculator.calculateCost(bookingDetails);
-
-        System.out.println("Total fare: " + cost);
-
-
+        return MembershipType.of(membershipInput);
     }
 
     public static int getInput(String input) {
