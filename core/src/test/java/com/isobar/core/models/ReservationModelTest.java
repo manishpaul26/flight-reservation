@@ -59,6 +59,7 @@ public class ReservationModelTest {
 
         assertThat("Properties should be correctly injected", model.getOriginLabel(), is("Origin"));
         assertThat("Properties should be correctly injected", model.getDestinationLabel(), is("Destination"));
+
     }
 
 }

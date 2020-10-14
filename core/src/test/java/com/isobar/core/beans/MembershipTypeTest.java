@@ -3,6 +3,7 @@ package com.isobar.core.beans;
 import org.junit.jupiter.api.Test;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
 
 public class MembershipTypeTest {
 
@@ -19,6 +20,9 @@ public class MembershipTypeTest {
 
         membershipType = MembershipType.of(3);
         assertEquals(MembershipType.BRONZE, membershipType);
+
+        //when incorrect
+        assertNull(MembershipType.of(5));
 
     }
 
@@ -38,6 +42,9 @@ public class MembershipTypeTest {
         membershipType = MembershipType.of("bronze");
         assertEquals(MembershipType.BRONZE, membershipType);
 
+
+        //when incorrect
+        assertNull(MembershipType.of("wrong"));
 
     }
 }

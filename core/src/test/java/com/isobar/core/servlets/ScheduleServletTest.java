@@ -28,6 +28,7 @@ public class ScheduleServletTest {
     @Mock
     private FlightScheduleService service;
 
+
     void doGet(AemContext context) throws ServletException, IOException {
 
 
@@ -38,7 +39,6 @@ public class ScheduleServletTest {
         MockSlingHttpServletRequest request = context.request();
         MockSlingHttpServletResponse response = context.response();
         context.registerService(FlightScheduleService.class, service);
-
 
         servlet.doGet(request, response);
 
