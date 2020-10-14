@@ -29,6 +29,10 @@ public class FlightScheduleServiceImplTest {
     @Mock
     private ResourceResolver resourceResolver;
 
+    /**
+     * When the right response is received from service.
+     * @throws LoginException
+     */
     @Test
     public void testServiceResponse() throws LoginException {
 
@@ -41,6 +45,10 @@ public class FlightScheduleServiceImplTest {
 
     }
 
+    /**
+     * When resource resolver throws login exception.
+     * @throws LoginException
+     */
     @Test
     public void testLoginExceptionHandling() throws LoginException {
 
@@ -48,6 +56,23 @@ public class FlightScheduleServiceImplTest {
         Schedule schedule = flightScheduleService.getSchedule(Route.SYDNEY_TO_MELBOURNE);
 
         assertNull(schedule);
+
+    }
+
+    /**
+     *
+     * Finally condition coverage for closing resource resolver.
+     * @throws LoginException
+     */
+    @Test
+    public void testResourceResolverClose() throws LoginException {
+
+
+        when(resourceResolverFactory.getServiceResourceResolver(any())).thenReturn(resourceResolver);
+        when(resourceResolver.isLive()).thenReturn(true);
+        Schedule schedule = flightScheduleService.getSchedule(Route.SYDNEY_TO_MELBOURNE);
+        assertThat("Origin should be Sydney:", schedule.getOrigin(), is("Sydney"));
+
 
     }
 }

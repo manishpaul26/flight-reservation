@@ -16,12 +16,12 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.isobar.core.services.FlightScheduleServiceImpl.Constants.MEL_SYD;
-import static com.isobar.core.services.FlightScheduleServiceImpl.Constants.SYD_MEL;
-
 @Component(service = FlightScheduleService.class)
 public class FlightScheduleServiceImpl implements FlightScheduleService {
 
+
+    public static final String SYD_MEL = "/content/dam/flight-reservation/schedule/melbourne-to-sydney.json";
+    public static final String MEL_SYD = "/content/dam/flight-reservation/schedule/sydney-to-melbourne.json";
 
     private static final Logger LOG = LoggerFactory.getLogger(FlightScheduleService.class);
 
@@ -52,10 +52,5 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
             }
         }
         return null;
-    }
-
-    final class Constants {
-        public static final String SYD_MEL = "/content/dam/flight-reservation/schedule/melbourne-to-sydney.json";
-        public static final String MEL_SYD = "/content/dam/flight-reservation/schedule/sydney-to-melbourne.json";
     }
 }
