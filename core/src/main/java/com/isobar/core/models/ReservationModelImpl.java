@@ -48,6 +48,6 @@ public class ReservationModelImpl implements ReservationModel {
     }
 
     public String getDestinationLabel() {
-        return originLabel;
+        return destinationLabel;
     }
 }

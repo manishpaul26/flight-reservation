@@ -1,6 +1,7 @@
 package com.isobar.core.models;
 
 import com.day.cq.wcm.api.Page;
+import com.google.common.collect.ImmutableMap;
 import io.wcm.testing.mock.aem.junit5.AemContext;
 import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 import org.apache.sling.api.resource.Resource;
@@ -18,7 +19,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ReservationModelTest {
 
 
-    private ReservationModel hello;
+    private ReservationModel model;
 
     private Page page;
 
@@ -29,12 +30,19 @@ public class ReservationModelTest {
 
         context.addModelsForPackage("com.isobar.core.models");
         // prepare a page with a test resource
+
         page = context.create().page("/content/reservation-page");
+
+
         resource = context.create().resource(page, "reservation",
-                "sling:resourceType", "flight-reservation/components/reservation/v1/reservation");
+                ImmutableMap.<String, Object>builder()
+                        .put("sling:resourceType", "flight-reservation/components/reservation/v1/reservation")
+                        .put("originLabel", "Origin")
+                        .put("destinationLabel", "Destination")
+                        .build());
 
         context.currentResource(resource);
-        hello = context.request().adaptTo(ReservationModel.class);
+        model = context.request().adaptTo(ReservationModel.class);
     }
 
 
@@ -44,11 +52,13 @@ public class ReservationModelTest {
      */
     @Test
     void testModelReturnsCorrectCities() throws Exception {
-        List<String> cities = hello.getCities();
+        List<String> cities = model.getCities();
 
         assertThat("Size of the list of cities should be 2", cities.size(), is(2));
-
         assertThat("First city should be Sydney", cities.get(0), is("Sydney"));
+
+        assertThat("Properties should be correctly injected", model.getOriginLabel(), is("Origin"));
+        assertThat("Properties should be correctly injected", model.getDestinationLabel(), is("Destination"));
     }
 
 }
